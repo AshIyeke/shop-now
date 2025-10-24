@@ -46,7 +46,7 @@ export default function ProductList() {
   }, [searchQuery, selectedCategory, sortOption]);
 
   return (
-    <div>
+    <div className="mt-10">
       <h1 className="text-2xl font-semibold text-center px-4 my-4">
         Product List ...
       </h1>

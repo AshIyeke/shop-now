@@ -3,6 +3,7 @@ const inter = Inter({ subsets: ["latin"] });
 import "./globals.css";
 import { CartProvider } from "@/components/CartContext";
 import Header from "../components/header";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "ShopNow",
@@ -13,9 +14,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={inter.className}>
       <body className="bg-white antialiased">
-        <CartProvider><div><Header/>
-        {children}
-          </div></CartProvider>
+        <CartProvider>
+          <Header />
+          {children}
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );
