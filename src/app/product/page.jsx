@@ -11,7 +11,7 @@ const categories = ["All", ...new Set(products.map((p) => p.category))];
 
 export default function ProductList() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategories, setSelectedCategories] = useState([]); // Changed to an array, empty means "All"
   const [sortOption, setSortOption] = useState("default");
   const [filteredProducts, setFilteredProducts] = useState(products);
 
@@ -19,9 +19,10 @@ export default function ProductList() {
     const lowercasedQuery = searchQuery.toLowerCase();
     let filtered = products;
 
-    if (selectedCategory !== "All") {
-      filtered = filtered.filter(
-        (product) => product.category === selectedCategory
+    if (selectedCategories.length > 0) {
+      // Check if any specific categories are selected
+      filtered = filtered.filter((product) =>
+        selectedCategories.includes(product.category)
       );
     }
 
@@ -43,7 +44,30 @@ export default function ProductList() {
     }
 
     setFilteredProducts(sorted);
-  }, [searchQuery, selectedCategory, sortOption]);
+  }, [searchQuery, selectedCategories, sortOption]); // Added selectedCategories to dependencies
+
+  const handleCategoryClick = (category) => {
+    if (category === "All") {
+      setSelectedCategories([]); // Selecting "All" clears all other selections
+    } else {
+      // If "All" was implicitly selected (empty array), clear it first
+      let newSelection =
+        selectedCategories.length === 0 ? [] : [...selectedCategories];
+
+      if (newSelection.includes(category)) {
+        // If category is already selected, remove it
+        newSelection = newSelection.filter((cat) => cat !== category);
+      } else {
+        // If category is not selected, add it
+        newSelection.push(category);
+      }
+
+      setSelectedCategories(newSelection);
+    }
+  };
+
+  // Determine if "All" is currently active (no specific categories selected)
+  const isAllActive = selectedCategories.length === 0;
 
   return (
     <div className="mt-10">
@@ -67,12 +91,13 @@ export default function ProductList() {
           {categories.map((category) => (
             <Button
               key={category}
-              variant={selectedCategory === category ? "default" : "outline"}
-              onClick={() =>
-                setSelectedCategory(
-                  selectedCategory === category ? "All" : category
-                )
+              variant={
+                (category === "All" && isAllActive) ||
+                (category !== "All" && selectedCategories.includes(category))
+                  ? "default"
+                  : "outline"
               }
+              onClick={() => handleCategoryClick(category)}
               className="capitalize"
             >
               {category.toLowerCase()}
