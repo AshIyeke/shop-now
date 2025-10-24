@@ -82,7 +82,7 @@ const Products = [
     category: "Laptops",
     price: 1299.0,
   // no laptop image available; fall back to public hero image
-  image: "/hero.png",
+  image: airpods,
     description:
       "Incredibly thin and light, with a brilliant Liquid Retina display and the powerful M3 chip for blazing-fast performance.",
     rating: 4.6,
