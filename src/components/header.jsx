@@ -4,10 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import { ShoppingCart, User, Menu, X } from "lucide-react";
 import { useCart } from "@/components/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cartCount } = useCart();
+  const { user } = useAuth();
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -40,15 +42,31 @@ export default function Header() {
               Contact Us
             </Link>
           </div>
-          
 
           <div className="hidden md:flex items-center space-x-6">
-            <Link
-              href="/account"
-              className="flex items-center text-gray-700 hover:text-blue-600 transition-colors"
-            >
-              <User className="h-6 w-6" />
-            </Link>
+            {user ? (
+              <Link
+                href="/account"
+                className="flex items-center text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                <User className="h-6 w-6" />
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                >
+                  Log In
+                </Link>
+                <Link
+                  href="/signup"
+                  className="px-4 py-2 bg-[#0E290E] text-white rounded-md hover:bg-blue-700 transition-colors font-semibold"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
             <Link
               href="/cart"
               className="flex items-center text-gray-700 hover:text-blue-600 transition-colors relative"
@@ -100,13 +118,30 @@ export default function Header() {
             >
               Contact Us
             </Link>
-            <Link
-              href="/account"
-              className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
-            >
-              <User className="h-5 w-5" />
-              <span className="ml-3 font-medium">Account</span>
-            </Link>
+            {user ? (
+              <Link
+                href="/account"
+                className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+              >
+                <User className="h-5 w-5" />
+                <span className="ml-3 font-medium">Account</span>
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg font-medium"
+                >
+                  Log In
+                </Link>
+                <Link
+                  href="/signup"
+                  className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg font-medium"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
             <Link
               href="/cart"
               className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"

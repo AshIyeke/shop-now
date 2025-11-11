@@ -1,9 +1,7 @@
-import { Inter } from "next/font/google";
-const inter = Inter({ subsets: ["latin"] });
+import { GeistSans, GeistMono } from "geist/font";
 import "./globals.css";
-import { CartProvider } from "@/components/CartContext";
-import Header from "../components/header";
-import Footer from "@/components/Footer";
+import { Providers } from "@/components/Providers";
+import Header from "@/components/header";
 
 export const metadata = {
   title: "ShopNow",
@@ -12,13 +10,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={inter.className}>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="bg-white antialiased">
-        <CartProvider>
-          <Header />
-          {children}
-          <Footer />
-        </CartProvider>
+        <Providers>
+          <div>
+            <Header/>
+            {children}
+          </div></Providers>
       </body>
     </html>
   );

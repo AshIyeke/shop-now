@@ -1,9 +1,9 @@
 "use client";
-
+import React from "react";
+import { useCart } from "@/components/CartContext";
 import { ShoppingCart } from "lucide-react";
 import CartItem from "@/components/CartItem";
 import OrderSummary from "@/components/OrderSummary";
-import { useCart } from "@/components/CartContext";
 
 const CartPage = () => {
   const { cartItems, getTotalItems } = useCart();

@@ -1,6 +1,5 @@
 "use client";
-
-import { useCart } from "./CartContext";
+import { useCart } from "@/components/CartContext";
 
 const OrderSummary = () => {
   const { getTotal, getTotalItems } = useCart();

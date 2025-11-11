@@ -1,14 +1,12 @@
-
 import Hero from "../components/hero";
 import ProductList from "../components/product-list";
-
+import React from "react";
 
 export default function Home() {
-  return(
-    <div className="container mx-auto min-h-screen">
-      
-      <Hero/>
-      {/* <ProductList/> */}
-    </div>
-  )
+  return (
+    <>
+      <Hero />
+      <ProductList />
+    </>
+  );
 }
