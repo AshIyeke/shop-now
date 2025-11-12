@@ -1,7 +1,7 @@
 import { GeistSans, GeistMono } from "geist/font";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
-import Header from "@/components/header";
+import Navbar from "@/components/Navbar";
 
 export const metadata = {
   title: "ShopNow",
@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
       <body className="bg-white antialiased">
         <Providers>
           <div>
-            <Header/>
+            <Navbar/>
             {children}
           </div></Providers>
       </body>

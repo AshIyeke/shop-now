@@ -2,14 +2,23 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ShoppingCart, User, Menu, X } from "lucide-react";
+import { ShoppingCart, User, Menu, X, LogOut } from "lucide-react";
 import { useCart } from "@/components/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
 
-export default function Header() {
+export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cartCount } = useCart();
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await signOut();
+    } catch (error) {
+      console.error("Error during sign out:", error);
+    }
+  };
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -45,12 +54,23 @@ export default function Header() {
 
           <div className="hidden md:flex items-center space-x-6">
             {user ? (
-              <Link
-                href="/account"
-                className="flex items-center text-gray-700 hover:text-blue-600 transition-colors"
-              >
-                <User className="h-6 w-6" />
-              </Link>
+              <div className="flex items-center space-x-4">
+                <Link
+                  href="/account"
+                  className="flex items-center text-gray-700 hover:text-blue-600 transition-colors"
+                  title="Account"
+                >
+                  <User className="h-6 w-6" />
+                </Link>
+
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center text-gray-700 hover:text-red-500 transition-colors"
+                  title="Logout"
+                >
+                  <LogOut className="w-6 h-6" />
+                </button>
+              </div>
             ) : (
               <>
                 <Link
@@ -119,13 +139,22 @@ export default function Header() {
               Contact Us
             </Link>
             {user ? (
-              <Link
-                href="/account"
-                className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
-              >
-                <User className="h-5 w-5" />
-                <span className="ml-3 font-medium">Account</span>
-              </Link>
+              <>
+                <Link
+                  href="/account"
+                  className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+                >
+                  <User className="h-5 w-5" />
+                  <span className="ml-3 font-medium">Account</span>
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+                >
+                  <LogOut className="h-5 w-5" />
+                  <span className="ml-3 font-medium">Logout</span>
+                </button>
+              </>
             ) : (
               <>
                 <Link
