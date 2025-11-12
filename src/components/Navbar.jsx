@@ -15,10 +15,13 @@ export default function Navbar() {
     e.preventDefault();
     try {
       await signOut();
+      setIsMenuOpen(false); // Close the menu on logout
     } catch (error) {
       console.error("Error during sign out:", error);
     }
   };
+
+  const handleMenuClick = () => setIsMenuOpen(false);
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -122,18 +125,21 @@ export default function Navbar() {
           <div className="px-4 pt-2 pb-3 space-y-3 ">
             <Link
               href="/product"
+              onClick={handleMenuClick}
               className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg font-medium"
             >
               Products
             </Link>
             <Link
               href="/about"
+              onClick={handleMenuClick}
               className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg font-medium"
             >
               About Us
             </Link>
             <Link
               href="/contact"
+              onClick={handleMenuClick}
               className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg font-medium"
             >
               Contact Us
@@ -142,6 +148,7 @@ export default function Navbar() {
               <>
                 <Link
                   href="/account"
+                  onClick={handleMenuClick}
                   className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
                 >
                   <User className="h-5 w-5" />
@@ -159,12 +166,14 @@ export default function Navbar() {
               <>
                 <Link
                   href="/login"
+                  onClick={handleMenuClick}
                   className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg font-medium"
                 >
                   Log In
                 </Link>
                 <Link
                   href="/signup"
+                  onClick={handleMenuClick}
                   className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg font-medium"
                 >
                   Sign Up
@@ -173,6 +182,7 @@ export default function Navbar() {
             )}
             <Link
               href="/cart"
+              onClick={handleMenuClick}
               className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
             >
               <ShoppingCart className="h-5 w-5" />
