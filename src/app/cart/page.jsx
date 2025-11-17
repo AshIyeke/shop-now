@@ -4,6 +4,7 @@ import { useCart } from "@/components/CartContext";
 import { ShoppingCart } from "lucide-react";
 import CartItem from "@/components/CartItem";
 import OrderSummary from "@/components/OrderSummary";
+import Link from "next/link";
 
 const CartPage = () => {
   const { cartItems, getTotalItems } = useCart();
@@ -25,9 +26,11 @@ const CartPage = () => {
               Your cart is empty
             </h2>
             <p className="text-gray-500 mb-6">Add some items to get started!</p>
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-              Start Shopping
-            </button>
+            <Link href="/product">
+              <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                Start Shopping
+              </button>
+            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
