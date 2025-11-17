@@ -6,11 +6,18 @@ import { ShoppingCart, User, Menu, X, LogOut } from "lucide-react";
 import { useCart } from "@/components/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
 
+/**
+ * The main navigation bar for the application.
+ * Displays navigation links, user authentication status, and a link to the cart.
+ * It is responsive and includes a mobile menu.
+ */
 export default function Navbar() {
+  // State for toggling the mobile menu
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cartCount } = useCart();
   const { user, signOut } = useAuth();
 
+  // Handles the user logout process.
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
@@ -21,6 +28,7 @@ export default function Navbar() {
     }
   };
 
+  // Closes the mobile menu when a link is clicked.
   const handleMenuClick = () => setIsMenuOpen(false);
 
   return (
@@ -28,7 +36,7 @@ export default function Navbar() {
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
-            <Link href="/" className="text-2xl font-bold text-[#0E290E]" >
+            <Link href="/" className="text-2xl font-bold text-[#0E290E]">
               ShopHub
             </Link>
           </div>
@@ -92,6 +100,7 @@ export default function Navbar() {
             )}
             <Link
               href="/cart"
+              title="Cart"
               className="flex items-center text-gray-700 hover:text-blue-600 transition-colors relative"
             >
               <ShoppingCart className="h-6 w-6" />

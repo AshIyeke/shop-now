@@ -9,7 +9,7 @@ export default function Hero() {
       <div className=' space-y-6 text-center md:text-left'>
         <h1 className=' font-medium text-3xl'>Grab Upto 30% Off On <br /> Selected Headphone</h1>
 
-        <Button className="bg-[#0E290E] text-white"><Link href={''}>Shop Now</Link></Button>
+        <Button className="bg-[#0E290E] text-white"><Link href={"/product"}>Shop Now</Link></Button>
 
       </div>
       <div>

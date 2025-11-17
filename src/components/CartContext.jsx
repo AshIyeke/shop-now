@@ -4,6 +4,9 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
+/**
+ * Custom hook to use the CartContext.
+ */
 export function useCart() {
   const context = useContext(CartContext);
   if (!context) {
@@ -12,10 +15,15 @@ export function useCart() {
   return context;
 }
 
+/**
+ * Provides cart state and functions to its children components.
+ * Manages cart items, including adding, removing, and updating quantities.
+ * Persists cart state to localStorage.
+ */
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
 
-  // Load cart from localStorage on initial render
+  // On initial render, load the cart from localStorage.
   useEffect(() => {
     try {
       const storedCart = localStorage.getItem("cart");
@@ -28,11 +36,15 @@ export function CartProvider({ children }) {
     }
   }, []);
 
-  // Save cart to localStorage whenever it changes
+  // Whenever cartItems state changes, save it to localStorage.
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
+  /**
+   * Adds a product to the cart. If the product already exists, it increases the quantity.
+   * @param {object} product - The product to add.
+   */
   const addToCart = (product) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === product.id);
@@ -50,10 +62,19 @@ export function CartProvider({ children }) {
     });
   };
 
+  /**
+   * Removes a product from the cart by its ID.
+   * @param {string|number} productId - The ID of the product to remove.
+   */
   const removeFromCart = (productId) => {
     setCartItems((prev) => prev.filter((item) => item.id !== productId));
   };
 
+  /**
+   * Updates the quantity of a product in the cart.
+   * @param {string|number} productId - The ID of the product to update.
+   * @param {number} quantity - The new quantity. Must be 1 or greater.
+   */
   const updateQuantity = (productId, quantity) => {
     if (quantity < 1) return;
     setCartItems((prev) =>
@@ -61,13 +82,22 @@ export function CartProvider({ children }) {
     );
   };
 
+  /**
+   * Calculates the total price of all items in the cart.
+   * @returns {number} The total price.
+   */
   const getTotal = () => {
     return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   };
 
+  /**
+   * Calculates the total number of items in the cart.
+   * @returns {number} The total number of items.
+   */
   const getTotalItems = () => {
     return cartItems.reduce((sum, item) => sum + item.quantity, 0);
   };
+  // A simple count of total items for quick display.
   const cartCount = cartItems.reduce((count, item) => count + item.quantity, 0);
 
   const value = {
