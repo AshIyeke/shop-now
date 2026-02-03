@@ -8,7 +8,7 @@ import { useParams } from "next/navigation";
 
 export default function ProductDetailPage({ params }) {
   const param = useParams();
-  const id = param.id ;
+  const id = param.id;
   const product = products.find((p) => p.id === parseInt(id, 10));
   const { addToCart } = useCart();
 
@@ -63,7 +63,7 @@ export default function ProductDetailPage({ params }) {
           </div>
           <Button
             onClick={() => addToCart(product)}
-            className="mt-4 w-full md:w-auto"
+            className="mt-4 w-full md:w-auto bg-black text-white hover:bg-gray-800"
           >
             Add to Cart
           </Button>
